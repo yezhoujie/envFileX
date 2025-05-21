@@ -1,0 +1,10 @@
+<ivy-module version="2.0">
+  <info organisation="bundledPlugin" module="org.jetbrains.idea.maven.model" revision="IU-251.25410.129"/>
+  <configurations>
+    <conf name="default" visibility="public"/>
+  </configurations>
+  <publications>
+    <artifact name="maven-model" ext="jar" conf="default" url="plugins/maven-model/lib"/>
+  </publications>
+  <dependencies/>
+</ivy-module>

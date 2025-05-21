@@ -1,0 +1,24 @@
+<ivy-module version="2.0">
+  <info organisation="bundledPlugin" module="org.jetbrains.idea.maven" revision="IU-251.25410.129"/>
+  <configurations>
+    <conf name="default" visibility="public"/>
+  </configurations>
+  <publications>
+    <artifact name="maven36-server" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="maven-jps" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="maven40-server" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="maven-server-indexer" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="maven-event-listener" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="maven3-server" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="artifact-resolver-m31" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="maven-server-telemetry" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="maven3-server-common" ext="jar" conf="default" url="plugins/maven/lib"/>
+    <artifact name="maven" ext="jar" conf="default" url="plugins/maven/lib"/>
+  </publications>
+  <dependencies>
+    <dependency org="bundledPlugin" name="com.intellij.properties" rev="IU-251.25410.129"/>
+    <dependency org="bundledPlugin" name="org.jetbrains.idea.reposearch" rev="IU-251.25410.129"/>
+    <dependency org="bundledPlugin" name="org.jetbrains.idea.maven.model" rev="IU-251.25410.129"/>
+    <dependency org="bundledPlugin" name="org.jetbrains.idea.maven.server.api" rev="IU-251.25410.129"/>
+  </dependencies>
+</ivy-module>

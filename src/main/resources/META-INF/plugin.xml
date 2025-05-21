@@ -1,0 +1,76 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>net.jay.envFileX</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>EnvFileX</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor url="https://github.com/username/envFileX">Jay</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+      <h1>EnvFileX</h1>
+
+      <b>EnvFileX</b> 是一个 JetBrains IDE 插件，允许您从一个或多个文件中设置运行配置的环境变量。
+      <br/>
+
+      <h3>支持的格式:</h3>
+      <ul>
+        <li><b>.env</b> 格式</li>
+      </ul>
+
+      <br/>
+      所有格式都假定键和值都是字符串。
+      <br/>
+
+      <h3>支持的平台:</h3>
+      <ul>
+        <li><b>IDEA</b></li>
+      </ul>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <!-- 定义我们的扩展点 -->
+    <extensionPoints>
+        <extensionPoint name="envVarsProvider" beanClass="net.jay.envfilex.platform.EnvVarsProviderExtension">
+            <with attribute="factory" implements="net.jay.envfilex.core.EnvVarsProviderFactory"/>
+        </extensionPoint>
+    </extensionPoints>
+
+    <!-- 注册我们的环境变量提供者 -->
+    <!--内部子元素应该与 <extensionPoint> name 相同，作用是什么 定义的 factory 字段是哪些实现类-->
+    <extensions defaultExtensionNs="net.jay.envFileX">
+        <envVarsProvider id="runconfig" factory="net.jay.envfilex.core.providers.runconfig.RunConfigEnvVarsProviderFactory"/>
+        <envVarsProvider id="env" factory="net.jay.envfilex.core.providers.dotenv.DotEnvFileParserFactory"/>
+        <envVarsProvider id="yaml" factory="net.jay.envfilex.core.providers.yaml.YamlEnvFileParserFactory"/>
+    </extensions>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 注册通知组 -->
+        <notificationGroup id="net.jay.envfilex" displayType="NONE"/>
+        
+        <!-- 注册环境文件配置类型 -->
+        <configurationType implementation="net.jay.envfilex.platform.EnvFileConfigurationType"/>
+
+        <!-- 注册程序运行器，用于设置环境变量 -->
+        <runConfigurationExtension implementation="net.jay.envfilex.idea.IdeaRunConfigurationExtension"/>
+        
+        <!-- 注册文件类型 -->
+        <fileType name="Env File"
+                 implementationClass="net.jay.envfilex.platform.EnvFileType"
+                 fieldName="INSTANCE" 
+                 language=".env"
+                 extensions="env;yaml;yml;json"/>
+    </extensions>
+</idea-plugin>
